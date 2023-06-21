@@ -1,0 +1,241 @@
+.company-logo {
+  width: inherit;
+  height: inherit;
+  border-radius: 6px 0 0 6px;
+}
+.logo-wrapper{
+  width: 140px;
+  height: 140px;
+}
+
+.detailed-page-wrapper {
+  margin-top: -40px;
+  position: relative;
+}
+
+.m-fixed{
+    margin: 0 355px;
+}
+
+.company-name {
+  border-radius: 6px;
+  height: 140px;
+  margin: 0 355px;
+  width: auto;
+}
+
+.company-desc-title {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 48px;
+}
+
+.company-desc-title h5 {
+  color: #19202d;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+}
+.company-desc-title h6 {
+  color: #6e8098;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+.company-url-btn {
+  text-decoration: none;
+  color: #5964e0;
+  font-weight: 700;
+  font-size: 16px;
+  background-color: rgb(89, 100, 224, 0.1);
+  padding: 16px 20px;
+  border-radius: 5px;
+}
+
+.company-url-btn:hover {
+  background-color: rgb(89, 100, 224, 0.35);
+}
+
+.dark-page-mode {
+  background-color: #19202d;
+  border-radius: 6px;
+}
+.light-page-mode {
+  background-color: #fff;
+  border-radius: 6px;
+}
+.dark-page-mode h5, .dark-page-mode .discription-header h4{
+    color: #fff;
+}
+
+.light-page-mode p{
+    color: #6E8098;
+}
+.dark-page-mode p{
+    color: #9DAEC2;
+}
+
+.detail-desc ul, .detail-desc ol{
+    color: #6E8098;
+    list-style: none;
+}
+
+.dark-page-mode .detail-desc ul,.dark-page-mode .detail-desc ol{
+    color: #9DAEC2;
+    list-style: none;
+}
+.detail-desc ul li::before{
+    content: '\2022';
+    color: #5964E0;
+    font-weight: bold;
+    display: inline-block; 
+    width: 2em;
+}
+.detail-desc ol li::before{
+    counter-increment: listitem;
+    content: counters(listitem, '.') ;
+    color: #5964E0;
+    font-weight: bold;
+    display: inline-block; 
+    width: 2em;
+}
+
+.dark-page-mode .company-url-btn{
+    color: #fff;
+    background-color: rgb(255,255,255,0.1);
+}
+.dark-page-mode .company-url-btn:hover{
+    background-color: rgb(255,255,255,0.25);
+}
+
+.top-wrapper{
+  display: flex;
+
+}
+
+.description-wrapper{
+    padding: 24px 48px 48px 48px;
+    margin-top: 32px;
+    margin-bottom: 80px;
+}
+
+.discription-header h4 {
+    font-weight: 700;
+    font-size: 28px;
+    color: #19202d;
+    line-height: 25px;
+  }
+
+  .discription-header h5 {
+    font-weight: 700;
+    font-size: 14px;
+    color: #5964e0;
+    line-height: 18px;
+    margin-top: 14px;
+  }
+  
+  .discription-header ul {
+    color: #6e8098;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .detail-desc h5{
+    font-weight: 700;
+    font-size: 20px;
+    margin: 40px 0 ;
+  }
+
+  .apply-btn{
+    border: 0;
+    background-color: #5964e0;
+    color: white;
+    padding: 16px 30px;
+    font-weight: 700;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+  }
+
+  .apply-btn:hover{
+    background-color: #939BF4;
+  }
+  .detail-footer{
+    width: 100%;
+    padding: 20px 355px;
+   
+   }
+@media screen and (max-width: 768px) {
+  .detailed-page-wrapper {
+    margin: 0;
+    position: relative;
+    margin-top: -40px;
+  }
+  .description-wrapper{
+    margin: 40px;
+    margin-top: 100px;
+  }
+  .apply-btn{
+    width: 100%;
+    margin-top: 20px;
+  }
+  .logo-wrapper{
+    width: 50px; height: 50px;
+  }
+  .company-logo{
+    border-radius: 6px;
+    margin-top: -20px;
+  }
+  .company-name{
+    background-color: white;
+    margin: 0 40px;
+    margin-top: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+  .top-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 20px;
+  }
+
+  .company-desc-title {
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+
+    margin: 0 auto;
+  }
+
+  .detail-footer{
+    padding: 0 40px;
+    padding-bottom:  20px;
+  }
+  .company-footer{
+    display: none;
+  }
+}
+
+@media screen and (min-width: 770px) and (max-width: 1400px) {
+  .detailed-page-wrapper {
+    margin: 0;
+    position: relative;
+    margin-top: -30px;
+  }
+  .description-wrapper{
+    margin: 40px;
+    margin-top: 100px;
+  }
+  .detail-footer{
+    padding: 20px 40px;
+  }
+  .company-name{
+    margin: 0 40px;
+  }
+}
