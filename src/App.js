@@ -8,11 +8,11 @@ import ThemeMode from "./ThemeMode";
 import Header from "./Header.png";
 
 function App() {
-  const [data, setData] = React.useState({data: []});
+  const [data, setData] = React.useState({ data: [] });
   const [search, setSearch] = React.useState("all");
   const [currentPage, setCurrentPage] = React.useState(0);
 
-  const fetchData = async (searchUrl = "all", page = currentPage) => {
+  const fetchData = async (searchUrl = "all", page = currentPage + 10) => {
     try {
       const response = await fetch(
         `https://cors-anywhere.herokuapp.com/https://serpapi.com/search.json?api_key=f5815099ddd989764d296cd3f67cb91d83fd58ac0215846156d553cb1f3af3fb&start=${page}&engine=google_jobs&q=${searchUrl}`
@@ -21,8 +21,8 @@ function App() {
         throw new Error("Error fetching URL");
       }
       const json = await response.json();
-
-      setData({ data: [...json.jobs_results, ...data.data] });
+      setData({ data: [ ...data.data,...json.jobs_results] });
+      setCurrentPage((prevArr) => prevArr + 10);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -30,14 +30,20 @@ function App() {
   const jobs = data.data;
 
   const loadMore = () => {
-    setCurrentPage((prevArr) => prevArr + 10);
-    fetchData(search);
-    console.log(data)
+    fetchData(search, currentPage);
+    console.log(currentPage);
   };
 
   React.useEffect(() => {
-    fetchData();
+    setData({ data: [] });
   }, [search]);
+
+  React.useEffect(() => {
+    if ((search !== "") & (currentPage === 0) & (data.data.length === 0)) {
+      fetchData();
+      setCurrentPage(0);
+    }
+  }, [data]);
 
   return (
     <Router>
