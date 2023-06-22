@@ -8,7 +8,7 @@ import ThemeMode from "./ThemeMode";
 import Header from "./Header.png";
 
 function App() {
-  const [data, setData] = React.useState([]);
+  const [data, setData] = React.useState({data: []});
   const [search, setSearch] = React.useState("all");
   const [currentPage, setCurrentPage] = React.useState(0);
 
@@ -22,7 +22,7 @@ function App() {
       }
       const json = await response.json();
 
-      setData({ data: json.jobs_results });
+      setData({ data: [...json.jobs_results, ...data.data] });
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -31,8 +31,8 @@ function App() {
 
   const loadMore = () => {
     setCurrentPage((prevArr) => prevArr + 10);
-    setData((prevData) => [...prevData.data, ...data.data]);
     fetchData(search);
+    console.log(data)
   };
 
   React.useEffect(() => {
