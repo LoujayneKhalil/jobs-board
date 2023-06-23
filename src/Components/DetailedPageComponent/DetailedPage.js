@@ -32,7 +32,12 @@ export default function DetailedPage({ jobs }) {
                 <h5>{selectedCard.company_name}</h5>
                 <h6>{selectedCard.company_name}.com</h6>
               </div>
-              <a className="company-url-btn" href="#company">
+              <a
+                className="company-url-btn"
+                href={`${selectedCard.related_links[0].link}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Company Site
               </a>
             </div>
@@ -56,7 +61,7 @@ export default function DetailedPage({ jobs }) {
                 <h5>{selectedCard.location}</h5>
               </div>
               <div className="col-md-4 d-flex justify-content-end">
-                <button className="apply-btn">Apply Now</button>
+                <a href="#apply" className="apply-btn" style={{textDecoration:'none'}}>Apply Now</a>
               </div>
             </div>
           </div>
@@ -105,7 +110,7 @@ export default function DetailedPage({ jobs }) {
             </h6>
           </div>
           <div className="col-md-4 col-12 d-flex justify-content-end">
-            <button className="apply-btn">Apply Now</button>
+            <a href="#apply " className="apply-btn" style={{textDecoration:'none'}}>Apply Now</a>
           </div>
         </div>
       </div>

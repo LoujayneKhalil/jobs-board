@@ -5,6 +5,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import IconButton from "@mui/material/IconButton";
 import ThemeContext from "../../ThemeContext";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 const searchIcon = {
   color: "#fff",
@@ -15,40 +17,61 @@ const searchIcon = {
   borderRadius: "5px",
 };
 
-export default function HomePage({ jobs, search, setSearch, fetchData,loadMore,currentPage,data}) {
+export default function HomePage({
+  jobs,
+  search,
+  setSearch,
+  fetchData,
+  loadMore,
+  currentPage,
+  data,
+  isLoading,
+  setLocation,
+  location,
+  setFilteredData,
+  filteredData,
+}) {
   const { theme } = useContext(ThemeContext);
-  const [fullTimeFilter, setFullTimeFilter] =React.useState(data.data);
   const [isChecked, setIsChecked] = React.useState(false);
+
+
 
 
   const handleOnchange = (e) => {
     setSearch(e.target.value);
   };
 
-  const SearchOnclick = () => {
-    fetchData(search,currentPage);
-    console.log(search)
+  const handleLocationOnchange = (e) =>{
+    setLocation(e.target.value)
+  }
 
+  const SearchOnclick = () => {
+    fetchData(search, currentPage,location);
+    console.log(search);
   };
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      fetchData(search,currentPage);
+      fetchData(search, currentPage,location);
     }
   };
 
-  function filteringFullTime() {
-    setIsChecked(!isChecked)
-    if(!isChecked){
-      setFullTimeFilter(data);
-      console.log(fullTimeFilter)
+   const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
 
-    }else {
-      const filtedData = jobs.filter((item)=>item.detected_extensions.schedule_type?item.detected_extensions.schedule_type.includes('Full-time'):null)
-      setFullTimeFilter(filtedData)
-      console.log(filtedData)
+    if (!isChecked) {
+      setFilteredData(data);
+      console.log(filteredData)
+    } else {
+      const filtered = data.data.filter((item) =>
+            item.detected_extensions.schedule_type
+              ? item.detected_extensions.schedule_type.includes("Full-time")
+              : null
+          );
+      setFilteredData(filtered);
+      console.log(filteredData)
     }
-  }
+  };
 
 
   return (
@@ -59,17 +82,16 @@ export default function HomePage({ jobs, search, setSearch, fetchData,loadMore,c
         }`}
       >
         <SearchBar
-          filteringFullTime={filteringFullTime}
           setSearch={setSearch}
           search={search}
           fetchData={fetchData}
           handleOnchange={handleOnchange}
           SearchOnclick={SearchOnclick}
           handleKeyPress={handleKeyPress}
-          fullTimeFilter={fullTimeFilter}
-          setFullTimeFilter={setFullTimeFilter}
           jobs={jobs}
-          isChecked={isChecked}
+          setLocation={setLocation}
+          handleLocationOnchange={handleLocationOnchange}
+          handleCheckboxChange={handleCheckboxChange}
         />
       </div>
 
@@ -89,20 +111,30 @@ export default function HomePage({ jobs, search, setSearch, fetchData,loadMore,c
             <IconButton>
               <FilterAltIcon className="filter-icon" />
             </IconButton>
-            <IconButton  onClick={SearchOnclick}>
-              <SearchIcon sx={searchIcon}/>
+            <IconButton onClick={SearchOnclick}>
+              <SearchIcon sx={searchIcon} />
             </IconButton>
           </div>
         </div>
       </div>
       <div className="job-cards">
-        <JobsCards jobs={jobs} fullTimeFilter={fullTimeFilter} data={data}/>
+        {isLoading ? (
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <CircularProgress />
+          </Box>
+        ) : (
+          <JobsCards data={data} filteredData={filteredData}/>
+        )}
       </div>
       <div
         className="d-flex justify-content-center"
         style={{ marginBottom: "100px" }}
       >
-        <button className="load-more-btn" style={{ borderRadius: "5px" }} onClick={loadMore}>
+        <button
+          className="load-more-btn"
+          style={{ borderRadius: "5px" }}
+          onClick={loadMore}
+        >
           Load More
         </button>
       </div>

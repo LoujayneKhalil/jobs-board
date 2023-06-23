@@ -216,6 +216,7 @@
   .detail-footer{
     padding: 0 40px;
     padding-bottom:  20px;
+    position: fixed;
   }
   .company-footer{
     display: none;

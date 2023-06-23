@@ -5,7 +5,7 @@ import ThemeContext from "../../ThemeContext";
 import LogoError from "../../LogoError.png";
 import { Link } from "react-router-dom";
 
-export default function JobsCards({ data}) {
+export default function JobsCards({data,filteredData}) {
   const { theme } = useContext(ThemeContext);
 
   // Dummy data if the api is not working

@@ -11,11 +11,18 @@ function App() {
   const [data, setData] = React.useState({ data: [] });
   const [search, setSearch] = React.useState("all");
   const [currentPage, setCurrentPage] = React.useState(0);
+  const [location,setLocation] = React.useState('')
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [filteredData, setFilteredData] = React.useState([]);
 
-  const fetchData = async (searchUrl = "all", page = currentPage + 10) => {
+
+
+  const fetchData = async (searchUrl = "all", page = currentPage + 10, locationUrl='') => {
+    setIsLoading(true);
+
     try {
       const response = await fetch(
-        `https://cors-anywhere.herokuapp.com/https://serpapi.com/search.json?api_key=f5815099ddd989764d296cd3f67cb91d83fd58ac0215846156d553cb1f3af3fb&start=${page}&engine=google_jobs&q=${searchUrl}`
+        `https://cors-anywhere.herokuapp.com/https://serpapi.com/search.json?api_key=2a51adbd46b0008371dcf7e3be2fdb6f45119ae5d46aa847c7bb5bbfa3619fd8&start=${page}&location=${locationUrl}&engine=google_jobs&q=${searchUrl}`
       );
       if (!response.ok) {
         throw new Error("Error fetching URL");
@@ -23,15 +30,18 @@ function App() {
       const json = await response.json();
       setData({ data: [ ...data.data,...json.jobs_results] });
       setCurrentPage((prevArr) => prevArr + 10);
+      setIsLoading(false);
+
     } catch (error) {
       console.error("Error fetching data:", error);
+      setIsLoading(false);
+
     }
   };
   const jobs = data.data;
 
   const loadMore = () => {
-    fetchData(search, currentPage);
-    console.log(currentPage);
+    fetchData(search, currentPage,location);
   };
 
   React.useEffect(() => {
@@ -73,6 +83,11 @@ function App() {
                 fetchData={fetchData}
                 loadMore={loadMore}
                 currentPage={currentPage}
+                isLoading={isLoading}
+                setLocation={setLocation}
+                location={location}
+                filteredData={filteredData}
+                setFilteredData={setFilteredData}
               />
             }
           />

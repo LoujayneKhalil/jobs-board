@@ -4,8 +4,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ThemeContext from "../../ThemeContext";
 
-export default function SearchBar({isChecked, handleOnchange,handleKeyPress,SearchOnclick,filteringFullTime}) {
+export default function SearchBar({isChecked, handleOnchange,handleKeyPress,SearchOnclick,handleLocationOnchange,handleCheckboxChange}) {
   const { theme } = useContext(ThemeContext);
+  
 
 
   return (
@@ -40,6 +41,7 @@ export default function SearchBar({isChecked, handleOnchange,handleKeyPress,Sear
           }`}
           type="text"
           placeholder="Filter by location…"
+          onChange={handleLocationOnchange}
         />
       </div>
       <div
@@ -50,7 +52,7 @@ export default function SearchBar({isChecked, handleOnchange,handleKeyPress,Sear
         <div className="checkbox-wrapper-21">
           <label className="control control--checkbox">
             Full Time Only
-            <input type="checkbox" checked={isChecked} onChange={filteringFullTime}/>
+            <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange}/>
             <div
               style={{ borderRadius: "3px" }}
               className="control__indicator"
