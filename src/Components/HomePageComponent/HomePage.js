@@ -28,14 +28,10 @@ export default function HomePage({
   isLoading,
   setLocation,
   location,
-  setFilteredData,
-  filteredData,
+  setFullTime,
 }) {
   const { theme } = useContext(ThemeContext);
   const [isChecked, setIsChecked] = React.useState(false);
-
-
-
 
   const handleOnchange = (e) => {
     setSearch(e.target.value);
@@ -56,23 +52,16 @@ export default function HomePage({
     }
   };
 
-   const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-
-    if (!isChecked) {
-      setFilteredData(data);
-      console.log(filteredData)
-    } else {
-      const filtered = data.data.filter((item) =>
-            item.detected_extensions.schedule_type
-              ? item.detected_extensions.schedule_type.includes("Full-time")
-              : null
-          );
-      setFilteredData(filtered);
-      console.log(filteredData)
+  const handleFullTime = () =>{
+    setIsChecked(!isChecked)
+    if(!isChecked){
+      setFullTime('FULLTIME')
+      console.log(!isChecked)
+    }else{
+      setFullTime('')
+      console.log(!isChecked)
     }
-  };
-
+  }
 
   return (
     <div>
@@ -91,7 +80,8 @@ export default function HomePage({
           jobs={jobs}
           setLocation={setLocation}
           handleLocationOnchange={handleLocationOnchange}
-          handleCheckboxChange={handleCheckboxChange}
+          handleFullTime={handleFullTime}
+          isChecked={isChecked}
         />
       </div>
 
@@ -123,7 +113,7 @@ export default function HomePage({
             <CircularProgress />
           </Box>
         ) : (
-          <JobsCards data={data} filteredData={filteredData}/>
+          <JobsCards data={data}/>
         )}
       </div>
       <div

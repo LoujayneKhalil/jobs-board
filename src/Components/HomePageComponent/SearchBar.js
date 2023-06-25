@@ -4,10 +4,15 @@ import SearchIcon from "@mui/icons-material/Search";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ThemeContext from "../../ThemeContext";
 
-export default function SearchBar({isChecked, handleOnchange,handleKeyPress,SearchOnclick,handleLocationOnchange,handleCheckboxChange}) {
+export default function SearchBar({
+  isChecked,
+  handleOnchange,
+  handleKeyPress,
+  SearchOnclick,
+  handleLocationOnchange,
+  handleFullTime
+}) {
   const { theme } = useContext(ThemeContext);
-  
-
 
   return (
     <div
@@ -16,7 +21,7 @@ export default function SearchBar({isChecked, handleOnchange,handleKeyPress,Sear
       }`}
     >
       <div className="d-flex align-items-center">
-        <SearchIcon sx={{ color: "#5964e0" }} className="search-icon"/>
+        <SearchIcon sx={{ color: "#5964e0" }} className="search-icon" />
         <input
           className={`filter-title ${
             theme === "light" ? "search-light-mode" : "search-dark-mode"
@@ -25,7 +30,6 @@ export default function SearchBar({isChecked, handleOnchange,handleKeyPress,Sear
           placeholder="Filter by title, companies, expertise…"
           onChange={handleOnchange}
           onKeyPress={handleKeyPress}
-
         />
       </div>
       <div className="d-flex align-items-center filter-location-wrapper">
@@ -52,14 +56,22 @@ export default function SearchBar({isChecked, handleOnchange,handleKeyPress,Sear
         <div className="checkbox-wrapper-21">
           <label className="control control--checkbox">
             Full Time Only
-            <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange}/>
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleFullTime}
+            />
             <div
               style={{ borderRadius: "3px" }}
               className="control__indicator"
             ></div>
           </label>
         </div>
-        <button className="search-btn" onClick={SearchOnclick} style={{ borderRadius: "5px" }}>
+        <button
+          className="search-btn"
+          onClick={SearchOnclick}
+          style={{ borderRadius: "5px" }}
+        >
           Search
         </button>
       </div>
